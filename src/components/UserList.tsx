@@ -4,19 +4,20 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { User } from '@/types/user';
 
-interface UserListProps {
+interface UserListProps { // Recebe a lista de usuários do tipo User
   users: User[];
 }
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
+    // Função para formatar datas apenas com dia/mês/ano no padrão brasileiro
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('pt-BR');
   };
-
+  // Função para formatar data e hora completas no padrão brasileiro
   const formatDateTime = (dateString: string) => {
     return new Date(dateString).toLocaleString('pt-BR');
   };
-
+ // Se não houver usuários na lista, exibe um card informando que está vazio
   if (users.length === 0) {
     return (
       <Card className="w-full max-w-4xl mx-auto animate-fade-in">
@@ -32,7 +33,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
       </Card>
     );
   }
-
+// Se houver usuários, exibe a lista com cards para cada usuário
   return (
     <div className="w-full max-w-6xl mx-auto space-y-6">
       <Card className="animate-fade-in shadow-lg">

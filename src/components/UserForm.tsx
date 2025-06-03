@@ -11,7 +11,7 @@ import { UserFormData, User } from '@/types/user';
 interface UserFormProps {
   onUserAdded: (user: User) => void;
 }
-
+ // Estado que guarda os dados do formulário
 const UserForm: React.FC<UserFormProps> = ({ onUserAdded }) => {
   const { toast } = useToast();
   const [formData, setFormData] = useState<UserFormData>({
@@ -30,8 +30,8 @@ const UserForm: React.FC<UserFormProps> = ({ onUserAdded }) => {
       [name]: value
     }));
   };
-
-  const validateForm = (): boolean => {
+  // Função para validar os campos do formulário antes do envio
+  const validateForm = (): boolean => {// Verifica se o nome não está vazio
     if (!formData.name.trim()) {
       toast({
         title: "Erro de validação",
@@ -51,7 +51,7 @@ const UserForm: React.FC<UserFormProps> = ({ onUserAdded }) => {
     });
     return false;
   }
-    
+     // Verifica se o telefone foi preenchido
     if (!formData.phone.trim()) {
       toast({
         title: "Erro de validação",
@@ -60,7 +60,7 @@ const UserForm: React.FC<UserFormProps> = ({ onUserAdded }) => {
       });
       return false;
     }
-    
+     // Verifica se a data de nascimento foi preenchida
     if (!formData.birthDate) {
       toast({
         title: "Erro de validação",
@@ -69,7 +69,7 @@ const UserForm: React.FC<UserFormProps> = ({ onUserAdded }) => {
       });
       return false;
     }
-    
+        // Se todas validações passarem, retorna true
     return true;
   };
 
@@ -80,18 +80,18 @@ const UserForm: React.FC<UserFormProps> = ({ onUserAdded }) => {
     
     setIsSubmitting(true);
     
-    try {
+    try {   // Cria o novo usuário com id e timestamp
       const newUser: User = {
         id: Date.now().toString(),
         ...formData,
         createdAt: new Date().toISOString()
       };
       
-      // Salvar no localStorage
+   // Busca usuários existentes no localStorage (ou cria array vazio)
       const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
       const updatedUsers = [...existingUsers, newUser];
       localStorage.setItem('users', JSON.stringify(updatedUsers));
-      
+           // Salva a lista atualizada no localStorage
       onUserAdded(newUser);
       
       // Limpar formulário
