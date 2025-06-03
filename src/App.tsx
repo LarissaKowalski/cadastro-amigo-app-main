@@ -7,7 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
-
+// Componente principal da aplicação
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
