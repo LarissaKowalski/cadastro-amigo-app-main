@@ -1,10 +1,10 @@
-
+// Importações de componentes internos
 import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import UserForm from './UserForm';
 import UserList from './UserList';
 import { User } from '@/types/user';
-
+// Componente principal que gerencia o estado dos usuários cadastrados
 const UserApp: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [activeTab, setActiveTab] = useState('cadastro');
