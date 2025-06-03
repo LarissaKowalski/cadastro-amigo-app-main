@@ -40,15 +40,17 @@ const UserForm: React.FC<UserFormProps> = ({ onUserAdded }) => {
       });
       return false;
     }
-    
-    if (!formData.email.trim() || !formData.email.includes('@')) {
-      toast({
-        title: "Erro de validação",
-        description: "Email válido é obrigatório",
-        variant: "destructive"
-      });
-      return false;
-    }
+  
+  // Validação do email melhorada com regex:
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!formData.email.trim() || !emailRegex.test(formData.email)) {
+    toast({
+      title: "Erro de validação",
+      description: "Email válido é obrigatório",
+      variant: "destructive"
+    });
+    return false;
+  }
     
     if (!formData.phone.trim()) {
       toast({
@@ -156,6 +158,7 @@ const UserForm: React.FC<UserFormProps> = ({ onUserAdded }) => {
                 placeholder="seu@email.com"
                 className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
                 required
+                
               />
             </div>
           </div>

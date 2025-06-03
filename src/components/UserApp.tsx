@@ -1,37 +1,38 @@
-// Importações de componentes internos
+// Importações principais do React e componentes usados no app
 import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import UserForm from './UserForm';
-import UserList from './UserList';
-import { User } from '@/types/user';
+import UserForm from './UserForm'; // cadastra usuário
+import UserList from './UserList';//Lista usuários cadastrados
+import { User } from '@/types/user';// Tipagem
+
 // Componente principal que gerencia o estado dos usuários cadastrados
 const UserApp: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [activeTab, setActiveTab] = useState('cadastro');
+  const [users, setUsers] = useState<User[]>([]);//  local q armazena a lista de usuários cadastrados
+  const [activeTab, setActiveTab] = useState('cadastro'); //  controlar qual aba que mostra
 
   useEffect(() => {
     // Carregar usuários do localStorage quando o componente monta
     const loadUsers = () => {
-      try {
+      try {    // Busca os dados armazenados no localStorage com a chave 'users'
         const storedUsers = localStorage.getItem('users');
         if (storedUsers) {
-          const parsedUsers = JSON.parse(storedUsers);
+          const parsedUsers = JSON.parse(storedUsers); //encontrou, converte de JSON para array de usuários e atualiza o estado
           setUsers(parsedUsers);
         }
-      } catch (error) {
+      } catch (error) { //caso de erro
         console.error('Erro ao carregar usuários do localStorage:', error);
       }
     };
 
-    loadUsers();
+    loadUsers(); // Executa a função de carregar usuários ao montar o componente
   }, []);
-
+// Função quando um novo usuário é cadastrado no UserForm
   const handleUserAdded = (newUser: User) => {
     setUsers(prevUsers => [...prevUsers, newUser]);
     // Mudar para a aba de usuários após cadastrar
     setActiveTab('usuarios');
   };
-
+//algumas conf
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       <div className="container mx-auto px-4 py-8">
